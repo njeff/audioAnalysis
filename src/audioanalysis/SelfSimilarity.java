@@ -32,8 +32,6 @@ import org.apache.commons.io.FilenameUtils;
  * @author Jeffrey
  */
 
-//F:\\Jeffrey\\Desktop\\Science Project 2014-2015\\similarity tests\\titanium\\titanium - Copy.arff
-//F:\\Jeffrey\\Desktop\\Science Project 2014-2015\\similarity tests\\art of war\\art of war.arff
 public class SelfSimilarity{   
     private Color color = Color.BLACK;
     final int PAD = 0; //padding around image (when it was drawn)
@@ -268,7 +266,6 @@ public class SelfSimilarity{
                             {0,0,0},
                             {-1,-2,-1}};
 
-        //System.out.println(image.getHeight());
         float columnadd = 0;
         float mean = 0;
 
@@ -360,7 +357,6 @@ public class SelfSimilarity{
             int current = git.next();
             int copylength = (int)(format.getSampleRate()*fileduration*(current-previousMajor)/length); //get length of song to cut (fraction of entire duration)
             //System.out.println("Current:" + current + " Previous: " + previousMajor + " Length:" + copylength);
-
             shortstream = new AudioInputStream(stream,format,copylength); //create segement of audio from where we last stopped
             File tempFile = new File(dir + "\\" + FilenameUtils.removeExtension(file.getName()) + "\\" + index + ".wav"); //save the split song into the new folder
             tempFile.createNewFile(); //make audio file
