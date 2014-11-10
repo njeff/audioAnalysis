@@ -76,8 +76,10 @@ public class SelfSimilarity{
          * And then jumps down to the bottom and right one (1,0)
          * And then back up, and so on
          */
+        
         //iterate twice: first time finds the minimum and second time draws the image with the properly scaled values 
         //makes program run for twice as long; may not be needed
+        //possible improvements: reduce the number of times the text file is called: maybe store all the data in memory before doing self-similarity
         for(int it = 0; it<2; it++){
             int k = 0; //current x value
             try(BufferedReader b = new BufferedReader(new FileReader(dir))){

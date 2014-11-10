@@ -10,7 +10,8 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 /**
- *
+ * MFCC test file helper
+ * 
  * @author Jeffrey
  */
 public class ValueLoader {
@@ -20,6 +21,11 @@ public class ValueLoader {
     float x = 13;
     float y = 0;
     
+    /**
+     * Instantiate ValueLoader
+     * 
+     * @param dir Directory of the text file
+     */  
     public ValueLoader(String dir){
         this.dir = dir;
         
@@ -33,6 +39,12 @@ public class ValueLoader {
         }       
     }
     
+    /**
+     * Gets the MFCC values from a specific row in the text file
+     * 
+     * @param y Row
+     * @return Array of MFCC values
+     */
     public double[] getRow(int y){
         int j =0 ;
         if(x < 0 || y < 0){

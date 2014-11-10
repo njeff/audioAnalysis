@@ -8,7 +8,8 @@ import java.io.File;
 import org.apache.commons.io.FilenameUtils;
 
 /**
- *
+ * Splits songs based on transitions in the audio 
+ * 
  * @author Jeffrey
  */
 public class SubSong {
