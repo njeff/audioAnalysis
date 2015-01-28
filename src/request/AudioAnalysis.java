@@ -19,19 +19,21 @@ public class AudioAnalysis {
      */
     public static void main(String[] args) {
         
-        String dir = "F:\\Jeffrey\\Music\\Songs\\wav\\0"; //directory for WAV
-        File musicdir = new File(dir);
-        //array of MP3 files (to get artist and title)
-        File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
-            @Override
-            public boolean accept(File dir, String name){
-                return name.toLowerCase().endsWith(".wav");
-            }
-        }
-        );
+//        String dir = "F:\\Jeffrey\\Documents\\GitHub\\msj2013\\Songs\\wav"; //directory for WAV
+//        File musicdir = new File(dir);
+//        //array of MP3 files (to get artist and title)
+//        File[] allfiles = musicdir.listFiles(new FilenameFilter(){ //use filter to make sure we don't read any album art files (.jpg)
+//            @Override
+//            public boolean accept(File dir, String name){
+//                return name.toLowerCase().endsWith(".wav");
+//            }
+//        }
+//        );
+//        
+//        for(File current : allfiles){
+//           SubSong.createSubSong(current.getAbsolutePath()); 
+//        }
         
-        for(File current : allfiles){
-           SubSong.createSubSong(current.getAbsolutePath()); 
-        }
+        SubSongAnalysis.extract("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\Songs\\wav");
     }
 }

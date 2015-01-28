@@ -35,7 +35,7 @@ public class SubSong {
         }
         //instantiate jAudio
         jAudioRunner jRunner = new jAudioRunner("F:\\Jeffrey\\Desktop\\Science Project 2014-2015\\similarity tests\\output", "F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\definitions.xml");
-        jRunner.run(song, arffOutput);
+        jRunner.run(song, arffOutput, true);
         jAudioRunner.jAudioCleaner(arffOutput);
         SelfSimilarity similarity = new SelfSimilarity(arffOutput);
         similarity.split(new File(song));

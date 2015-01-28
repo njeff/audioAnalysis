@@ -39,20 +39,35 @@ public class jAudioRunner {
     /**
      * Runs jAudio feature extractor
      * 
-     * @param songPath Path of the song
+     * @param songPath Path of the song (or path to folder when in sub-song analysis mode)
      * @param outputFile Full path to .arff output (including file and file extension)
+     * @param mode True for sub-song segmentation, false for sub-song analysis
      */
-    void run(String songPath, String outputFile){
+    void run(String songPath, String outputFile, boolean mode){
         try{
+            File allfiles[] = null;
             File song = new File(songPath);
             if(song.getName().toLowerCase().endsWith(".wav")){
                 System.out.println(song.getName());
+                allfiles = new File[]{song};
             } else {
-                System.out.println("Invalid File.");
-                return;
+                if(!mode){
+                    allfiles = song.listFiles(new FilenameFilter() {
+                        @Override
+                        public boolean accept(File dir, String name) {
+                           return name.toLowerCase().endsWith(".wav");
+                        }
+                    });
+                    if(allfiles.length == 0||allfiles == null){
+                        System.out.println("Invalid File.");
+                        return; 
+                    }
+                } else {
+                    System.out.println("Invalid File.");
+                    return; 
+                }
             }
-            File allfiles[]= {song};
-            
+  
             int windowSize = 4096; //size of the analysis window in samples
             double windowOverlap = 0; //percent overlap as a value between 0 and 1
             double samplingRate = 11025; //number of samples per second
@@ -61,7 +76,18 @@ public class jAudioRunner {
             boolean overall = false; //should global features be extracted
             int outputType = 1; //what output format should extracted features be stored in
             String featureLocation = xmlOut; //location of the feature definition file
-
+            
+            if(!mode){
+                windowSize = 512; //size of the analysis window in samples
+                windowOverlap = 0; //percent overlap as a value between 0 and 1
+                samplingRate = 16000; //number of samples per second
+                normalize = false; //should the file be normalized before execution
+                perWindow = false; //should features be extracted on a window by window basis
+                overall = true; //should global features be extracted
+                outputType = 1; //what output format should extracted features be stored in
+                featureLocation = xmlOut; //location of the feature definition file
+            }
+            
             Object[] o = new Object[] {};
             try {
                     o = (Object[]) XMLDocumentParser.parseXMLDocument(this.batchFile, //location of file with batch settings (make sure the "dummy file" is valid!
@@ -129,6 +155,5 @@ public class jAudioRunner {
                 }
             }
         }
-        
     }
 }
