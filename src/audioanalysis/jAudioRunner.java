@@ -41,18 +41,18 @@ public class jAudioRunner {
      * 
      * @param songPath Path of the song (or path to folder when in sub-song analysis mode)
      * @param outputFile Full path to .arff output (including file and file extension)
-     * @param mode True for sub-song segmentation, false for sub-song analysis
+     * @param mode True for sub-song segmentation, false for sub-song analysis (the sub-song WAVs -> one ARFF)
      */
     void run(String songPath, String outputFile, boolean mode){
         try{
             File allfiles[] = null;
             File song = new File(songPath);
-            if(song.getName().toLowerCase().endsWith(".wav")){
+            if(song.getName().toLowerCase().endsWith(".wav")){ //if WAV
                 System.out.println(song.getName());
                 allfiles = new File[]{song};
             } else {
-                if(!mode){
-                    allfiles = song.listFiles(new FilenameFilter() {
+                if(!mode){ //if in sub-song analysis mode
+                    allfiles = song.listFiles(new FilenameFilter() { //get all the WAV files in the directory
                         @Override
                         public boolean accept(File dir, String name) {
                            return name.toLowerCase().endsWith(".wav");
@@ -62,7 +62,7 @@ public class jAudioRunner {
                         System.out.println("Invalid File.");
                         return; 
                     }
-                } else {
+                } else { //otherwise bad file
                     System.out.println("Invalid File.");
                     return; 
                 }
@@ -77,7 +77,7 @@ public class jAudioRunner {
             int outputType = 1; //what output format should extracted features be stored in
             String featureLocation = xmlOut; //location of the feature definition file
             
-            if(!mode){
+            if(!mode){ //if sub-song analysis mode
                 windowSize = 512; //size of the analysis window in samples
                 windowOverlap = 0; //percent overlap as a value between 0 and 1
                 samplingRate = 16000; //number of samples per second
