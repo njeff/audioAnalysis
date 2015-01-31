@@ -5,8 +5,10 @@
 package request;
 
 import audioanalysis.*;
+import database.subsong.Save;
 import java.io.File;
 import java.io.FilenameFilter;
+import java.sql.Connection;
 
 /**
  *
@@ -34,6 +36,8 @@ public class AudioAnalysis {
 //           SubSong.createSubSong(current.getAbsolutePath()); 
 //        }
         
-        SubSongAnalysis.extract("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\Songs\\wav");
+        //SubSongAnalysis.extract("F:\\Jeffrey\\Documents\\GitHub\\msj2013\\Songs\\wav");
+        Connection con = Save.startconnection("orcl");
+        Save.save(con, "F:\\Jeffrey\\Documents\\GitHub\\msj2013\\Songs\\wav");
     }
 }

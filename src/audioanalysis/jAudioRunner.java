@@ -13,6 +13,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -109,6 +110,7 @@ public class jAudioRunner {
                 dm.featureValue = new FileOutputStream(new File(b.getDestinationFV()));
                 b.setDataModel(dm);
                 b.setSettings(windowSize,windowOverlap,samplingRate,normalize,perWindow,overall,outputType);
+                Arrays.sort(allfiles);
                 b.setRecordings(allfiles);
                 b.execute();
             }

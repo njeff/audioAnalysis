@@ -36,7 +36,7 @@ public class SubSongAnalysis {
         try {
             for(File current : folders){ //iterate  
                 System.out.println(current.getName());
-                jAudioRunner jRunner = new jAudioRunner("F:\\Jeffrey\\Desktop\\Science Project 2014-2015\\similarity tests\\subsongrun2", "F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\definitions.xml");
+                jAudioRunner jRunner = new jAudioRunner("F:\\Jeffrey\\Desktop\\Science Project 2014-2015\\similarity tests\\subsongrun3", "F:\\Jeffrey\\Documents\\GitHub\\msj2013\\jaudioout\\definitions.xml");
                 String outputName = current.getAbsolutePath()+"\\"+current.getName(); //name of output file
                 jRunner.run(current.getAbsolutePath(), outputName+".tmp", false); //create a temporary file
 
@@ -52,7 +52,7 @@ public class SubSongAnalysis {
                         } else {
                             writer.println(line); //otherwise just copy normally
                         }
-                        if(line.contains("Average12")){ //if we are at the last attribute
+                        if(line.contains("@ATTRIBUTE \"Area Method of Moments of MFCCs Overall Average9\" NUMERIC")){ //if we are at the last attribute
                             writer.println("@ATTRIBUTE MOODCLASS {0,1,2,3,4,5,6,7}"); //add in the mood attribute
                         }
                         if(line.contains("@DATA")){ //if the data start flag is found
