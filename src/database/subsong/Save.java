@@ -79,7 +79,8 @@ public class Save {
         });
         
         for(int i = 0; i<allfiles.length; i++){
-            String arffFile = allfiles[i].getAbsolutePath() + "//" + allfiles[i].getName() + "_c.arff";          
+            String arffFile = allfiles[i].getAbsolutePath() + "\\" + allfiles[i].getName() + "_c.arff";
+            System.out.println(arffFile);
             File[] wavfiles = new File(allfiles[i].getAbsolutePath()).listFiles(new FilenameFilter(){
                 @Override
                 public boolean accept(File dir, String name){
@@ -87,7 +88,7 @@ public class Save {
                 }
             });
             
-            int[] lengths = new int[wavfiles.length];
+            float[] lengths = new float[wavfiles.length];
             int[] moods = new int[wavfiles.length];
             Arrays.sort(wavfiles); 
             int position = 0;
@@ -100,8 +101,8 @@ public class Save {
                     int frameSize = format.getFrameSize();
                     float frameRate = format.getFrameRate();
                     float durationInSeconds = (audioFileLength / (frameSize * frameRate));
-                    lengths[position] = (int)durationInSeconds;
-                    System.out.println(durationInSeconds);
+                    lengths[position] = durationInSeconds;
+                    //System.out.println(durationInSeconds);
                 } catch (Exception e){
                     e.printStackTrace();
                 }
@@ -116,9 +117,10 @@ public class Save {
                 while ((line = br.readLine()) != null) {
                     if(data){
                         moods[mposition]=Integer.parseInt(line.substring(line.length()-1)); //read the last value at the end of each data row (which is the mood)
+                        //System.out.println(moods[mposition]);
                         mposition++;
                     }
-                    if(line.equals("@DATA")){
+                    if(line.equals("@data")){
                         data = true;
                     }
                 }
@@ -133,13 +135,18 @@ public class Save {
             Statement stmt = null;
             try {
                 stmt = con.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT TITLE, ARTISTID FROM SONGTABLE WHERE DIR='" + allfiles[i].getName().replace("'", "''") + ".wav'"); //get row with the correct songs
+                ResultSet rs = null;
+                if(allfiles[i].getName().equals("Y.M.C.A")){ //formatting issue with folder
+                    rs = stmt.executeQuery("SELECT TITLE, ARTISTID FROM SONGTABLE WHERE DIR='" + "Y.M.C.A." + ".wav'"); //get row with the correct songs
+                } else {
+                    rs = stmt.executeQuery("SELECT TITLE, ARTISTID FROM SONGTABLE WHERE DIR='" + allfiles[i].getName().replace("'", "''") + ".wav'"); //get row with the correct songs
+                }
                 while (rs.next()) {
                     title = rs.getString("TITLE");
                     artistid = rs.getInt("ARTISTID");
                 }
             } catch (SQLException e) {
-                System.out.println(allfiles[i].getName());
+                //System.out.println(allfiles[i].getName());
                 e.printStackTrace();
             } finally {
                 if (stmt != null) { try {stmt.close(); } catch (SQLException ex) { ex.printStackTrace();}} //close connection
